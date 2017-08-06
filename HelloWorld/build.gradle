@@ -1,0 +1,45 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+
+repositories {
+    jcenter()
+}
+
+ext.springVersion = '4.3.6.RELEASE'
+
+dependencies {
+    compile "org.springframework:spring-context:$springVersion"
+    compile "org.springframework:spring-jdbc:$springVersion"
+    compile "org.springframework:spring-aop:$springVersion"
+    compile 'aopalliance:aopalliance:1.0'
+    compile 'org.aspectj:aspectjweaver:1.8.10'
+
+    testCompile "org.springframework:spring-test:$springVersion"
+    testCompile 'junit:junit:4.12'
+}
+
+// Embeded Jetty for testing
+jettyRun{
+	contextPath = "spring4"
+	httpPort = 8080
+}
+
+jettyRunWar{
+	contextPath = "spring4"
+	httpPort = 8080
+}
+
+//For Eclipse IDE only
+eclipse {
+
+  wtp {
+    component {
+
+      //define context path, default to project folder name
+      contextPath = 'spring4'
+
+    }
+
+  }
+}
